@@ -1,0 +1,6 @@
+trigger Claims_Trigger on Claims__c (after insert) {
+    for(Claims__c claim:Trigger.New){
+        
+        GetUsdRate.getUSRate(claim.id);
+    }
+ }
