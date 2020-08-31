@@ -1,0 +1,25 @@
+public class GetUsdRate {
+    @Future(callout=true)
+    public static void getUSRate(string i){
+        claims__c claim=[select Currency__c,Total_In_INR__c,Total_USD__c from claims__c where id=:i];
+        Double usdRate;
+        Http http=new Http();
+        HttpRequest request=new HttpRequest();
+        request.setEndpoint('https://api.exchangeratesapi.io/latest?base=INR');
+        request.setMethod('GET');
+        HttpResponse res=http.send(request);
+        
+        if (res.getStatusCode() == 200) {
+   
+    	  Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(res.getBody());
+    
+        Map<String,Object> animals = (Map<String,Object>) results.get('rates');
+        usdRate=(double)animals.get(claim.Currency__c);
+        }
+        
+        claim.Total_In_INR__c=claim.Total_USD__c/usdRate;
+        update claim;
+        
+    }
+
+}
