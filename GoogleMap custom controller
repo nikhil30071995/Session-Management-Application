@@ -1,8 +1,7 @@
 public class HotelRemoter{
     public double latitude {get;set;}
 public double longitude {get;set;}
-    public id i{get;set;}
-    public string name{get; set;}    
+      
 public Session__c session;
 
  
@@ -11,9 +10,7 @@ public Session__c session;
         session = [select  hotel__c,hotel__r.name,Hotel__r.latitude__c,hotel__r.longitude__c from Session__c where id =: currentRecordId ];
         latitude=session.Hotel__r.latitude__c;
         longitude=session.hotel__r.longitude__c;
-        i=session.Hotel__c;
-        name=session.hotel__r.name;
-        
+      
     }
 
 }
