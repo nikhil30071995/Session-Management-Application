@@ -13,8 +13,8 @@ public class GetUsdRate {
    
     	  Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(res.getBody());
     
-        Map<String,Object> animals = (Map<String,Object>) results.get('rates');
-        usdRate=(double)animals.get(claim.Currency__c);
+        Map<String,Object> rate = (Map<String,Object>) results.get('rates');
+        usdRate=(double)rate.get(claim.Currency__c);
         }
         
         claim.Total_In_INR__c=claim.Total_USD__c/usdRate;
